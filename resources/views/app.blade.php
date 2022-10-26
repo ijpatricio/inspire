@@ -10,11 +10,16 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
         @inertia
     </body>
+    <script type="text/x-template" id="taskList">
+        <MyCustomComponent />
+        <div>
+            I am injectcted on a x-template
+        </div>
+    </script>
 </html>

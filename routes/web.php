@@ -16,16 +16,19 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Welcome', );
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/remote-template', function () {
+    $data = [
+        'user' => (object) ['email' => 'ask@me.com']
+    ];
 
-require __DIR__.'/auth.php';
+    return \Illuminate\Support\Facades\Blade::render(
+        <<<'BLADE'
+        <span>
+            I am loaded from a server, woohoo {{ $user->email }}
+        </span>
+        <MyCustomComponent />
+        BLADE, $data);
+});
