@@ -4,6 +4,10 @@ networks:
   web:
     external: true
 
+volumes:
+  mysql:
+  redis:
+
 services:
   inspire:
     restart: always
