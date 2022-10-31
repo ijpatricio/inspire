@@ -10,7 +10,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/production/Dockerfile
-    image: ijpatricio/Inspire:${TAG:-latest}
+    image: ijpatricio/inspire:${TAG:-latest}
     volumes:
       - ./.env:/var/www/html/.env
       - ./storage/app:/var/www/html/storage/app

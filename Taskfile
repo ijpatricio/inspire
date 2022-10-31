@@ -29,6 +29,13 @@ function createUser() {
     ssh-keygen -t ed25519
 }
 
+function installDockerCompose() {
+    COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+    sh -c "curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
+    chmod +x /usr/local/bin/docker-compose
+}
+
+
 function hello() {
   ssh $USER@$HOST '''
     adduser forge
