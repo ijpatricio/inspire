@@ -21,7 +21,7 @@ function default {
     help
 }
 
-function createUser() {
+function hello_PHP_LX_Meetup() {
     # ssh -o "UserKnownHostsFile=/dev/null" root@HOST
     installDockerCompose
     adduser --gecos "" forge
@@ -29,27 +29,23 @@ function createUser() {
     su forge
     alias dc=docker-compose
     cd ~
-    ssh-keygen -t ed25519
+    mkdir apps
+    cd apps
     git clone https://github.com/ijpatricio/inspire.git
     cp .env.example .env
     update VITE_PUSHER_HOST_BROWSER to HOST_IP
     docker-compose -f docker-compose.demo.yml build
+    docker-compose -f docker-compose.demo.yml up
+    # Open new SSH session, and go with Forge user, to app folder
+    docker-compose -f docker-compose.demo.yml inspire bash
+    php artisan key:generate
+    php artisan migrate
 }
 
 function installDockerCompose() {
     COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
     sh -c "curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
     chmod +x /usr/local/bin/docker-compose
-}
-
-
-function hello() {
-  ssh $USER@$HOST '''
-    adduser forge
-
-    mkdir -p apps
-    git clone https://github.com/ijpatricio/inspire.git
-    '''
 }
 
 TIMEFORMAT="Task completed in %3lR"
