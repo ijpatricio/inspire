@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Inspired on https://github.com/adriancooney/Taskfile
+#
+# Install an alias, to be able to simply execute `run`
+# echo 'alias run=./run' >> ~/.aliases
+#
+# alias run=./Taskfile
+# alias help=./Taskfile help
+
+USER=root
+HOST=5.75.134.125
+
+function help {
+    echo "$0 <task> <args>"
+    echo "Tasks:"
+    compgen -A function | cat -n
+}
+
+function default {
+    help
+}
+
+function createUser() {
+    # ssh into the vps
+    adduser --gecos "" forge
+    su forge
+    cd ~
+    ssh-keygen -t ed25519
+}
+
+function hello() {
+  ssh $USER@$HOST '''
+    adduser forge
+
+    mkdir -p apps
+    git clone https://github.com/ijpatricio/inspire.git
+    '''
+}
+
+TIMEFORMAT="Task completed in %3lR"
+time "${@:-default}"

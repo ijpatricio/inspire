@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93ab07bb90d76e61be05650013b8951b",
+    "content-hash": "cfc1be642434c43dc327ca22096205a2",
     "packages": [
         {
             "name": "brick/math",
@@ -6668,6 +6668,42 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "ijpatricio/docker-for-forge",
+            "version": "v0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ijpatricio/docker-for-forge.git",
+                "reference": "1a6aca889344feba3d8dadbcafe90d2aab548cd8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ijpatricio/docker-for-forge/zipball/1a6aca889344feba3d8dadbcafe90d2aab548cd8",
+                "reference": "1a6aca889344feba3d8dadbcafe90d2aab548cd8",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": "Ijpatricio\\DockerForForge\\DockerForForgeServiceProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ijpatricio\\DockerForForge\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Docker utilities to use Docker within Forge deployed servers.",
+            "support": {
+                "issues": "https://github.com/ijpatricio/docker-for-forge/issues",
+                "source": "https://github.com/ijpatricio/docker-for-forge/tree/v0.0.2"
+            },
+            "time": "2022-08-02T18:24:10+00:00"
         },
         {
             "name": "laravel/breeze",
