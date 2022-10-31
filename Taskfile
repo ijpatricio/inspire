@@ -22,7 +22,7 @@ function default {
 }
 
 function hello_PHP_LX_Meetup() {
-    # ssh -o "UserKnownHostsFile=/dev/null" root@HOST
+    # ==> ssh -o "UserKnownHostsFile=/dev/null" root@HOST
     installDockerCompose
     adduser --gecos "" forge
     usermod -aG sudo forge
@@ -33,11 +33,11 @@ function hello_PHP_LX_Meetup() {
     cd apps
     git clone https://github.com/ijpatricio/inspire.git
     cp .env.example .env
-    update VITE_PUSHER_HOST_BROWSER to HOST_IP
-    docker-compose -f docker-compose.demo.yml build
-    docker-compose -f docker-compose.demo.yml up
-    # Open new SSH session, and go with Forge user, to app folder
-    docker-compose -f docker-compose.demo.yml inspire bash
+    # ==> update VITE_PUSHER_HOST_BROWSER to HOST_IP
+    sudo docker-compose -f docker-compose.demo.yml build
+    sudo docker-compose -f docker-compose.demo.yml up
+    # ==> Open new SSH session, and go with Forge user, to app folder
+    sudo docker-compose -f docker-compose.demo.yml inspire bash
     php artisan key:generate
     php artisan migrate
 }
