@@ -22,11 +22,13 @@ function default {
 }
 
 function createUser() {
-    # ssh into the vps
+    # ssh -o "UserKnownHostsFile=/dev/null" root@HOST
     adduser --gecos "" forge
     su forge
     cd ~
     ssh-keygen -t ed25519
+    git clone https://github.com/ijpatricio/inspire.git
+    cp .env.example .env
 }
 
 function installDockerCompose() {
