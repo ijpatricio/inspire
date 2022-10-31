@@ -23,12 +23,17 @@ function default {
 
 function createUser() {
     # ssh -o "UserKnownHostsFile=/dev/null" root@HOST
+    installDockerCompose
     adduser --gecos "" forge
+    usermod -aG sudo forge
     su forge
+    alias dc=docker-compose
     cd ~
     ssh-keygen -t ed25519
     git clone https://github.com/ijpatricio/inspire.git
     cp .env.example .env
+    update VITE_PUSHER_HOST_BROWSER to HOST_IP
+    docker-compose -f docker-compose.demo.yml build
 }
 
 function installDockerCompose() {
