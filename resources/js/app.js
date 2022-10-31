@@ -1,13 +1,13 @@
-import './bootstrap';
-import '../css/app.css';
+import './bootstrap'
+import '../css/app.css'
 
-import { createApp, h, defineAsyncComponent } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { createApp, h, defineAsyncComponent } from 'vue'
+import { createInertiaApp, InertiaLink } from '@inertiajs/inertia-vue3'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+import { createPinia } from 'pinia'
+const pinia = createPinia()
 import { Plugin as Vanilla } from '@indigit/vanilla-components'
-
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Inspire'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -17,12 +17,12 @@ createInertiaApp({
         return createApp({ render: () => h(app, props) })
             .use(plugin)
             .use(Vanilla)
+            .use(pinia)
+            .component('Link', InertiaLink)
             .component(
                 'MyCustomComponent',
                 defineAsyncComponent(() => import('@/Components/MyCustomComponent.vue'))
             )
-            .mount(el);
+            .mount(el)
     },
-});
-
-InertiaProgress.init({ color: '#4B5563' });
+})

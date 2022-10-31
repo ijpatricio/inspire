@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Spatie\RouteDiscovery\Discovery\Discover;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,19 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', );
-});
+Route::get('/', fn () => inertia('Welcome'));
+Route::get('/about', fn () => inertia('About'));
+Route::get('/quiz', fn () => inertia('Quiz'));
+Route::get('/results', fn () => inertia('Results'));
+
+Route::group([
+    'prefix' => 'api'
+], fn() => Discover::controllers()->in(app_path('Http/Controllers/Api')));
+
 
 Route::get('/remote-template', function () {
     $data = [
-        'user' => (object) ['email' => 'ask@me.com']
+        'user' => (object) ['email' => 'user@me.com']
     ];
 
     return \Illuminate\Support\Facades\Blade::render(
@@ -29,6 +36,7 @@ Route::get('/remote-template', function () {
         <span>
             I am loaded from a server, woohoo {{ $user->email }}
         </span>
+
         <MyCustomComponent />
         BLADE, $data);
 });

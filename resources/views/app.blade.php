@@ -13,13 +13,18 @@
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-gray-100">
         @inertia
     </body>
+
+    {{-- Example for Renderless --}}
     <script type="text/x-template" id="taskList">
-        <MyCustomComponent />
         <div>
-            I am injectcted on a x-template
+            <MyCustomComponent />
+            <div>
+                I am injected on a x-template
+            </div>
         </div>
     </script>
+
 </html>
