@@ -37,9 +37,10 @@ function hello_PHP_LX_Meetup() {
     sudo docker-compose -f docker-compose.demo.yml build
     sudo docker-compose -f docker-compose.demo.yml up
     # ==> Open new SSH session, and go with Forge user, to app folder
-    sudo docker-compose -f docker-compose.demo.yml inspire bash
+    sudo docker-compose -f docker-compose.demo.yml exec inspire bash
     php artisan key:generate
     php artisan migrate
+    php artisan queue:work
 }
 
 function installDockerCompose() {
