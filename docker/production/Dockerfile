@@ -65,8 +65,9 @@ COPY ./docker/production/www.conf /etc/php/8.1/fpm/pool.d/www.conf
 COPY ./docker/production/php.ini /etc/php/8.1/cli/conf.d/99-php.ini
 
 # CRON
-COPY ./docker/production/add_to_cron /tmp/add_to_cron
-RUN crontab /tmp/add_to_cron ; rm /tmp/add_to_cron
+COPY ./docker/production/app-cron-file /etc/cron.d/app-cron-file
+RUN chmod 0644 /etc/cron.d/app-cron-file
+RUN crontab /etc/cron.d/app-cron-file
 
 # SERVICES
 COPY ./docker/production/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
