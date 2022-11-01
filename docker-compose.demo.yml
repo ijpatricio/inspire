@@ -27,7 +27,6 @@ services:
 
   inspire-worker:
     <<: *app-container
-
     command: "gosu forge php /var/www/html/artisan queue:work"
 
   mysql:
