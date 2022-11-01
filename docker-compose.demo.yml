@@ -7,34 +7,27 @@ volumes:
   mysql:
   redis:
 
+x-app-container: &app-container
+  restart: always
+  build:
+    context: .
+    dockerfile: ./docker/production/Dockerfile
+  image: ijpatricio/inspire:${TAG:-latest}
+  volumes:
+    - ./.env:/var/www/html/.env
+    - ./storage/app:/var/www/html/storage/app
+    - ./storage/logs:/var/www/html/storage/logs
+  networks:
+    - web
+
 services:
   inspire:
-    restart: always
-    build:
-      context: .
-      dockerfile: ./docker/production/Dockerfile
-    image: ijpatricio/inspire:${TAG:-latest}
-    volumes:
-      - ./.env:/var/www/html/.env
-      - ./storage/app:/var/www/html/storage/app
-      - ./storage/logs:/var/www/html/storage/logs
-    networks:
-      - web
-    ports: ['80:80']
+    <<: *app-container
+    ports: [ '80:80' ]
 
   inspire-worker:
-    restart: always
-    build:
-      context: .
-      dockerfile: ./docker/production/Dockerfile
-    image: ijpatricio/inspire:${TAG:-latest}
-    command: gosu forge php /var/www/html/artisan queue:work
-    volumes:
-      - ./.env:/var/www/html/.env
-      - ./storage/app:/var/www/html/storage/app
-      - ./storage/logs:/var/www/html/storage/logs
-    networks:
-      - web
+    <<: *app-container
+    command: "gosu forge php /var/www/html/artisan queue:work"
 
   mysql:
     image: 'mysql/mysql-server:8.0'

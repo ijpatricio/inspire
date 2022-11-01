@@ -4,12 +4,13 @@
 #
 # Install an alias, to be able to simply execute `run`
 # echo 'alias run=./run' >> ~/.aliases
+# echo 'alias dc=docker-compose' >> ~/.bash_aliases
 #
 # alias run=./Taskfile
 # alias help=./Taskfile help
 
 USER=root
-HOST=5.75.134.125
+HOST=5.75.130.134
 
 function help {
     echo "$0 <task> <args>"
@@ -25,19 +26,19 @@ function hello_PHP_LX_Meetup() {
     # ==> ssh -o "UserKnownHostsFile=/dev/null" root@HOST
     installDockerCompose
     adduser --gecos "" forge
-    usermod -aG sudo forge
+    usermod -aG sudo,docker forge
     su forge
-    alias dc=docker-compose
+    echo 'alias dc=docker-compose' >> ~/.bash_aliases
     cd ~
     mkdir apps
     cd apps
     git clone https://github.com/ijpatricio/inspire.git
     cp .env.example .env
     # ==> update VITE_PUSHER_HOST_BROWSER to HOST_IP
-    sudo docker-compose -f docker-compose.demo.yml build
-    sudo docker-compose -f docker-compose.demo.yml up
+    docker-compose -f docker-compose.demo.yml build
+    docker-compose -f docker-compose.demo.yml up
     # ==> Open new SSH session, and go with Forge user, to app folder
-    sudo docker-compose -f docker-compose.demo.yml exec inspire bash
+    docker-compose -f docker-compose.demo.yml exec -u forge inspire bash
     php artisan key:generate
     php artisan migrate
     # Already (on the docker-compose) php artisan queue:work
