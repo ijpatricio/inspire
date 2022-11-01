@@ -23,6 +23,7 @@ specifiers:
   pinia: ^2.0.23
   postcss: ^8.4.18
   pusher-js: ^7.4.0
+  qrcode.vue: ^3.3.3
   tailwindcss: ^3.2.1
   vite: ^3.0.0
   vue: ^3.2.41
@@ -41,6 +42,7 @@ dependencies:
   libphonenumber-js: 1.10.14
   pinia: 2.0.23_vue@3.2.41
   pusher-js: 7.4.0
+  qrcode.vue: 3.3.3_vue@3.2.41
   vue3-apexcharts: 1.4.1_qrr3w56yxaxlicqd6tjzd6baom
 
 devDependencies:
@@ -1099,6 +1101,14 @@ packages:
     dependencies:
       '@types/node': 14.18.33
       tweetnacl: 1.0.3
+    dev: false
+
+  /qrcode.vue/3.3.3_vue@3.2.41:
+    resolution: {integrity: sha512-OsD4tQjIbxg/K6D5ZkWjBdYI9eg9K2i8qeYILdEAX5mdAydSAxV7xKmmZSP/hA12olLqEMZ9ryqDQrwa9jEMgw==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.2.41
     dev: false
 
   /qs/6.11.0:
