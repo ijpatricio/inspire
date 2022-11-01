@@ -25,7 +25,7 @@ export const useVotingStore = defineStore('voting', {
         options: {
             series: [{data: []}],
             chart: {
-                width: 550,
+                width: 370,
                 height: 350,
                 type: 'bar',
             },
