@@ -42,6 +42,7 @@ function hello_PHP_LX_Meetup() {
     php artisan key:generate
     php artisan migrate
     # Already (on the docker-compose) php artisan queue:work
+    # docker-compose -f docker-compose.demo.yml up -d --scale inspire-worker=5
 }
 
 function installDockerCompose() {
