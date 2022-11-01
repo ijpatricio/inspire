@@ -68,6 +68,7 @@ COPY ./docker/production/php.ini /etc/php/8.1/cli/conf.d/99-php.ini
 COPY ./docker/production/app-cron-file /etc/cron.d/app-cron-file
 RUN chmod 0644 /etc/cron.d/app-cron-file
 RUN crontab /etc/cron.d/app-cron-file
+RUN /etc/init.d/cron restart
 
 # SERVICES
 COPY ./docker/production/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
