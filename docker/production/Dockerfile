@@ -64,6 +64,10 @@ COPY ./docker/production/php-fpm.conf /etc/php/8.1/fpm/php-fpm.conf
 COPY ./docker/production/www.conf /etc/php/8.1/fpm/pool.d/www.conf
 COPY ./docker/production/php.ini /etc/php/8.1/cli/conf.d/99-php.ini
 
+# CRON
+COPY ./docker/internal/add_to_cron /tmp/add_to_cron
+RUN crontab /tmp/add_to_cron ; rm /tmp/add_to_cron
+
 # SERVICES
 COPY ./docker/production/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
