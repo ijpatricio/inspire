@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Cities;
 use Illuminate\View\Component;
 
 class UserPermissions extends Component
@@ -26,6 +27,7 @@ class UserPermissions extends Component
         $data = [
             // Fake implementation, but could be a real one
             'permissions' => ['edit_photos', 'delete_photos'],
+            'cities' => Cities::get(),
         ];
 
         return view('components.user-permissions', $data);
