@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use Spatie\RouteDiscovery\Discovery\Discover;
 
 /*
@@ -20,6 +18,7 @@ Route::get('/', fn () => inertia('Welcome'));
 Route::get('/about', fn () => inertia('About'));
 Route::get('/quiz', fn () => inertia('Quiz'));
 Route::get('/results', fn () => inertia('Results'));
+Route::get('/renderless', fn () => inertia('Renderless'));
 
 Route::group([
     'prefix' => 'api'
@@ -40,3 +39,10 @@ Route::get('/remote-template', function () {
         <MyCustomComponent />
         BLADE, $data);
 });
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';

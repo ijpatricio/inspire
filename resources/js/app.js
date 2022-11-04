@@ -1,6 +1,10 @@
 import './bootstrap'
 import '../css/app.css'
 
+import Alpine from 'alpinejs';
+window.Alpine = Alpine;
+Alpine.start();
+
 import { createApp, h, defineAsyncComponent } from 'vue'
 import { createInertiaApp, InertiaLink } from '@inertiajs/inertia-vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'

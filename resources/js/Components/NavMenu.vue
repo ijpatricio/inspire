@@ -8,5 +8,6 @@ import {ref, reactive, onMounted, toRefs} from 'vue'
         <Link href="/quiz" v-text="'Quiz'"/>
         <Link href="/results" v-text="'Results'"/>
         <Link href="/about" v-text="'About'"/>
+        <Link href="/renderless" v-text="'Renderless'"/>
     </div>
 </template>

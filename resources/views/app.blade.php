@@ -18,7 +18,7 @@
     </body>
 
     {{-- Example for Renderless --}}
-    <script type="text/x-template" id="taskList">
+    <script type="text/x-template" id="injected">
         <div>
             <MyCustomComponent />
             <div>
