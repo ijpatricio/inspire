@@ -4,7 +4,29 @@ networks:
   web:
     external: true
 
+x-app-container: &app-container
+  restart: always
+  build:
+    context: .
+    dockerfile: ./docker/production/Dockerfile
+  image: ijpatricio/inspire:${TAG:-latest}
+  volumes:
+    - ./.env:/var/www/html/.env
+    - ./storage/app:/var/www/html/storage/app
+    - ./storage/logs:/var/www/html/storage/logs
+  networks:
+    - web
+
 services:
+
+  inspire-invalid:
+    <<: *app-container
+    ports: [ '80:80' ]
+
+  inspire-worker-invalid:
+    <<: *app-container
+    command: "gosu forge php /var/www/html/artisan queue:work"
+
   inspire:
     restart: always
     build:
