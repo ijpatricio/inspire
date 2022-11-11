@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/production/Dockerfile
-    image: ijpatricio/inspire:${TAG:-latest}
+    image: inspire:${TAG:-latest}
     ports: [ '80:80' ]
     restart: always
     volumes:
