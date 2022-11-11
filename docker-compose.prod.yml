@@ -24,7 +24,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.inspire.entrypoints=https
-      - traefik.http.routers.inspire.rule=Host(`${TRAEFIK_HOST:-example.com}`)
+      - traefik.http.routers.inspire.rule=Host(`${INSPIRE_TRAEFIK_HOST:-example.com}`)
       - traefik.http.routers.inspire.service=inspire
       - traefik.http.services.inspire.loadbalancer.server.port=80
       - traefik.http.routers.inspire.tls.certresolver=leresolver
@@ -77,7 +77,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.soketi.loadbalancer.server.port=6001
-      - traefik.http.routers.soketi.rule=Host(`${TRAEFIK_WEBSITE_HOST:-example.com}`)
+      - traefik.http.routers.soketi.rule=Host(`${SOKETI_TRAEFIK_HOST:-example.com}`)
       - traefik.http.routers.soketi.entrypoints=https
       - traefik.http.routers.soketi.tls.certresolver=leresolver
 
@@ -110,7 +110,7 @@ services:
       ## TRAEFIK ROUTER & DASHBOARD
       - traefik.enable=true
       - traefik.http.routers.traefik.entrypoints=https
-      - traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DASHBOARD_HOST:-example.com}`)
+      - traefik.http.routers.traefik.rule=Host(`${DASHBOARD_TRAEFIK_HOST:-example.com}`)
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.middlewares=auth
       - traefik.http.routers.traefik.tls.certresolver=leresolver
