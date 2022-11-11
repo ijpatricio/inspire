@@ -90,15 +90,15 @@ services:
       - "80:80"
       - "443:443"
       # Uncomment for debug
-      - "8080:8080"
+      #- "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./storage/letsencrypt:/letsencrypt
       - ./traefik.auth:/auth/traefik.auth
     command:
-      - --api.dashboard=true
+      #- --api.dashboard=true
       # Uncomment for debug
-      - --api.insecure=true
+      #- --api.insecure=true
       - --entrypoints.http.address=:80
       - --entrypoints.https.address=:443
       - --providers.docker=true
