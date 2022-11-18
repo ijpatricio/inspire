@@ -75,8 +75,6 @@ COPY --from=build_composer --chown=forge:forge /app /var/www/html
 
 RUN chmod a+x start-container
 
-USER forge
-
 EXPOSE 80 9000
 
 ENTRYPOINT ["./start-container"]
