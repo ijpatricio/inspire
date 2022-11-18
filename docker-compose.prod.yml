@@ -98,7 +98,7 @@ services:
       - ./storage/letsencrypt:/letsencrypt
       - ./traefik.auth:/auth/traefik.auth
     command:
-      #- --api.dashboard=true
+      - --api.dashboard=true
       # Uncomment for debug
       #- --api.insecure=true
       - --entrypoints.http.address=:80
