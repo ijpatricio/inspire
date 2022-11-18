@@ -25,9 +25,5 @@ function fpm() {
     php-fpm8.1
 }
 
-function cron() {
-    exec "cron -f"
-}
-
 TIMEFORMAT="Task completed in %3lR"
 time "${@:-default}"
