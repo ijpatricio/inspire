@@ -37,6 +37,7 @@ services:
       - traefik.http.routers.inspire.tls.certresolver=leresolver
   inspire-fpm:
     <<: *base-laravel-app
+    hostname: fpm
     command: ["fpm"]
 
   mysql:
