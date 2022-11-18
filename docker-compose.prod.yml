@@ -44,7 +44,7 @@ services:
     user: forge
   inspire-cron:
     <<: *base-laravel-app
-    entrypoint: ["cron", "-f"]
+    command: [ "cron" ]
 
   mysql:
     image: 'mysql/mysql-server:8.0'

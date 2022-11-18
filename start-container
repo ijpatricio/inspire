@@ -26,7 +26,7 @@ function fpm() {
 }
 
 function cron() {
-    cron -f
+    exec "cron -f"
 }
 
 TIMEFORMAT="Task completed in %3lR"
