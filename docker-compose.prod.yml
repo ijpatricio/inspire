@@ -38,6 +38,13 @@ services:
   inspire-fpm:
     <<: *base-laravel-app
     command: ["fpm"]
+  inspire-worker:
+    <<: *base-laravel-app
+    command: ["worker"]
+    user: forge
+  inspire-cron:
+    <<: *base-laravel-app
+    command: ["cron"]
 
   mysql:
     image: 'mysql/mysql-server:8.0'
