@@ -15,5 +15,7 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Artisan::command('inspire', function () {
-    info(Inspiring::quote());
+    \Illuminate\Support\Facades\File::append(
+        base_path('zz_manual.log'), 'Hello ' . now()->format('H:i:s') . PHP_EOL
+    );
 })->purpose('Display an inspiring quote');
