@@ -24,7 +24,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update \
     && apt-get install -y nano cron nginx \
-       gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 \
+       gnupg gosu curl ca-certificates zip unzip git sqlite3 libcap2-bin libpng-dev python2 \
     && mkdir -p ~/.gnupg \
     && chmod 600 ~/.gnupg \
     && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
@@ -69,13 +69,14 @@ COPY ./docker/production/app-cron-file /etc/cron.d/app-cron-file
 RUN chmod 0644 /etc/cron.d/app-cron-file
 RUN crontab /etc/cron.d/app-cron-file
 
-# SERVICES
-COPY ./docker/production/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # PROJECT FILES OWNERSHIP AND PERMISSIONS
 RUN chown -R forge:forge /var/www
 COPY --from=build_composer --chown=forge:forge /app /var/www/html
 
-EXPOSE 80
+RUN chmod a+x start-container
 
-CMD ["/usr/bin/supervisord"]
+USER forge
+
+EXPOSE 80 9000
+
+ENTRYPOINT ["./start-container"]

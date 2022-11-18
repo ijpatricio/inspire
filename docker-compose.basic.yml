@@ -12,7 +12,7 @@ services:
   inspire:
     build:
       context: .
-      dockerfile: ./docker/production/Dockerfile
+      dockerfile: ./docker/basic/Dockerfile
     image: inspire:${TAG:-latest}
     ports: [ '80:80' ]
     restart: always

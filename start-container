@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Inspired on https://github.com/adriancooney/Taskfile
+#
+
+function help {
+    echo "$0 <task> <args>"
+    echo "Tasks:"
+    compgen -A function | cat -n
+}
+
+function default {
+    help
+}
+
+function webserver() {
+    /usr/sbin/nginx -g "daemon off;"
+}
+
+function worker() {
+    php /var/www/html/artisan queue:work --tries=3 --max-time=3600
+}
+
+function fpm() {
+    php-fpm8.1
+}
+
+function cron() {
+    cron -f
+}
+
+TIMEFORMAT="Task completed in %3lR"
+time "${@:-default}"

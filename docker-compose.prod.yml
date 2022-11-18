@@ -7,20 +7,25 @@ volumes:
   mysql:
   redis:
 
-services:
 
+x-inspire: &base-laravel-app
+  build:
+    context: .
+    dockerfile: ./docker/production/Dockerfile
+  image: inspire:${TAG:-latest}
+  restart: always
+  volumes:
+    - ./.env:/var/www/html/.env
+    - ./storage/app:/var/www/html/storage/app
+    - ./storage/logs:/var/www/html/storage/logs
+  networks:
+    - web
+
+
+services:
   inspire:
-    build:
-      context: .
-      dockerfile: ./docker/production/Dockerfile
-    image: inspire:${TAG:-latest}
-    restart: always
-    volumes:
-      - ./.env:/var/www/html/.env
-      - ./storage/app:/var/www/html/storage/app
-      - ./storage/logs:/var/www/html/storage/logs
-    networks:
-      - web
+    <<: *base-laravel-app
+    command: ["webserver"]
     labels:
       - traefik.enable=true
       - traefik.http.routers.inspire.entrypoints=https
@@ -56,7 +61,7 @@ services:
     networks:
       - web
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       retries: 3
       timeout: 5s
 
