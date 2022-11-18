@@ -26,6 +26,8 @@ services:
   inspire:
     <<: *base-laravel-app
     command: ["webserver"]
+    depends_on:
+      - inspire-fpm
     labels:
       - traefik.enable=true
       - traefik.http.routers.inspire.entrypoints=https
