@@ -1,0 +1,75 @@
+version: '3'
+
+networks:
+    web:
+
+volumes:
+    mysql:
+    redis:
+
+
+x-inspire: &base-laravel-app
+    build:
+        context: .
+        dockerfile: ./docker/production/Dockerfile
+    image: inspire:${TAG:-latest}
+    restart: always
+    volumes:
+        - ./.env:/var/www/html/.env
+        - ./storage/app:/var/www/html/storage/app
+        - ./storage/logs:/var/www/html/storage/logs
+    networks:
+        - web
+
+
+services:
+    inspire:
+        <<: *base-laravel-app
+        command: ["webserver"]
+        depends_on:
+            - inspire-fpm
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.inspire.entrypoints=https
+            - traefik.http.routers.inspire.rule=Host(`${INSPIRE_TRAEFIK_HOST:-example.com}`)
+            - traefik.http.routers.inspire.service=inspire
+            - traefik.http.services.inspire.loadbalancer.server.port=80
+            - traefik.http.routers.inspire.tls.certresolver=leresolver
+    inspire-fpm:
+        <<: *base-laravel-app
+        command: ["fpm"]
+    inspire-worker:
+        <<: *base-laravel-app
+        command: ["worker"]
+        user: forge
+    inspire-cron:
+        <<: *base-laravel-app
+        entrypoint: ["cron", "-f"]
+    redis:
+        restart: always
+        image: 'redis:alpine'
+        volumes:
+            - redis:/data
+        networks:
+            - web
+        healthcheck:
+            test: [ "CMD", "redis-cli", "ping" ]
+            retries: 3
+            timeout: 5s
+    soketi:
+        restart: always
+        image: 'quay.io/soketi/soketi:latest-16-alpine'
+        environment:
+            SOKETI_DEFAULT_APP_ID: '${PUSHER_APP_ID}'
+            SOKETI_DEFAULT_APP_KEY: '${PUSHER_APP_KEY}'
+            SOKETI_DEFAULT_APP_SECRET: '${PUSHER_APP_SECRET}'
+            SOKETI_DEBUG: '1'
+            SOKETI_METRICS_SERVER_PORT: '9601'
+        networks:
+            - web
+        labels:
+            - traefik.enable=true
+            - traefik.http.services.soketi.loadbalancer.server.port=6001
+            - traefik.http.routers.soketi.rule=Host(`${SOKETI_TRAEFIK_HOST:-example.com}`)
+            - traefik.http.routers.soketi.entrypoints=https
+            - traefik.http.routers.soketi.tls.certresolver=leresolver
