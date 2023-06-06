@@ -1,4 +1,4 @@
-import { Button, Card, DropdownMenu, DropdownOption } from '@indigit/vanilla-components'
+import { Button, Card, DropdownMenu, DropdownOption } from '@flavorly/vanilla-components'
 import axios from 'axios'
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 

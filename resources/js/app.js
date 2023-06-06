@@ -10,7 +10,7 @@ import { createInertiaApp, InertiaLink } from '@inertiajs/inertia-vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
-import { Plugin as Vanilla } from '@indigit/vanilla-components'
+import { Plugin as Vanilla } from '@flavorly/vanilla-components'
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Inspire'
 
 createInertiaApp({
